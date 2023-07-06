@@ -1,54 +1,61 @@
 package com.company;
 
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Product> products = new ArrayList<>();
+        //ArrayList<Product> products = new ArrayList<>();
+        Products products = new Products();
 
         // Programador trabajo en la creación de productos informáticos.
-        ProductIds idsProdInf = ProductIds.getInstance();
-        Product prodInf;
-        prodInf = new Product(idsProdInf.nextId(), "Memoria");
-        products.add(prodInf);
-        prodInf = new Product(idsProdInf.nextId(), "Disco");
-        products.add(prodInf);
-        prodInf = new Product(idsProdInf.nextId(), "Pendrive");
-        products.add(prodInf);
-        prodInf = new Product(idsProdInf.nextId(), "Monitor");
-        products.add(prodInf);
+            ProductIds idsProdInf = ProductIds.getInstance();
 
+            ComputerProducts computerProducts = new ComputerProducts();
+            computerProducts.addProduct(new Product(idsProdInf.nextId(), "Memoria"));
+            computerProducts.addProduct(new Product(idsProdInf.nextId(), "Disco"));
+            computerProducts.addProduct(new Product(idsProdInf.nextId(), "Pendrive"));
+            computerProducts.addProduct(new Product(idsProdInf.nextId(), "Monitor"));
+
+            // Refactored to not use the creation line every time you want to save
+            for (Product productComp: computerProducts.getProductsCreated()) {
+                products.create(productComp);
+            }
+        // Programador trabajo en la creación de productos informáticos.
 
         // Programador trabajo en la creación de productos de limpieza.
         ProductIds idsProdLmp = ProductIds.getInstance();
         Product prodLmp;
         prodLmp = new Product(idsProdLmp.nextId(), "Jabón");
-        products.add(prodLmp);
+        products.create(prodLmp);
         prodLmp = new Product(idsProdLmp.nextId(), "Desodorante");
-        products.add(prodLmp);
+        products.create(prodLmp);
         prodLmp = new Product(idsProdLmp.nextId(), "L. Piso");
-        products.add(prodLmp);
+        products.create(prodLmp);
 
 
         // Programador trabajo en la creación de productos de almacén.
         ProductIds idsProdAlm = ProductIds.getInstance();
         Product prodAlm;
         prodAlm = new Product(idsProdAlm.nextId(), "Pan");
-        products.add(prodAlm);
+        products.create(prodAlm);
         prodAlm = new Product(idsProdAlm.nextId(), "Leche");
-        products.add(prodAlm);
+        products.create(prodAlm);
         prodAlm = new Product(idsProdAlm.nextId(), "Membrillo");
-        products.add(prodAlm);
+        products.create(prodAlm);
 
-        // Muestro productos cargados.
-        for (Product product: products) {
-            System.out.println(product.getId() + " " + product.getName());
-        }
+        listAllProducts(products);
 
         System.out.println();
-        System.out.println("Posición de memoria de los 3 objetos que apuntan al Singleton");
-        System.out.println(idsProdInf);
-        System.out.println(idsProdLmp);
-        System.out.println(idsProdAlm);
+        System.out.println("-------------------------------");
+        System.out.println();
+
+        // Mas adelante tengo que listar nuevamente los productos
+        products.reset();
+        listAllProducts(products);
+    }
+
+    public static void listAllProducts(Products products) {
+        while (products.hasMore()) {
+            Product product = products.next();
+            System.out.println(product.getId() + " " + product.getName());
+        }
     }
 }
