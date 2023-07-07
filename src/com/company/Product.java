@@ -1,5 +1,9 @@
 package com.company;
 
+/**
+ * Clase que determina los datos que se necesitan para cada producto que se vende.
+ * @Autor psalvi
+ */
 public class Product {
     private int id;
     private String name;

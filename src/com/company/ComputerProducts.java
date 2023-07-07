@@ -2,6 +2,10 @@ package com.company;
 
 import java.util.ArrayList;
 
+/**
+ * Clase que lleva el almacenamiento de los productos de informatica
+ * @Autor JSmith
+ */
 public class ComputerProducts {
     private final ArrayList<Product> prodsInf = new ArrayList<>();
 
